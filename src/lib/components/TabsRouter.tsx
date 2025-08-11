@@ -21,12 +21,16 @@ const TabItem: React.FC<TabItemProps> = ({ tab, isActive, onClose }) => {
     <div
       style={{
         minWidth: 80,
+        maxWidth: 140,
         width: "auto",
         height: 35,
+        padding: "0 5px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
         cursor: "pointer",
+        background: "#fff",
+        borderRadius: 4,
         borderBottom: isActive ? "2px solid #0052d9" : "none",
       }}
     >
@@ -34,7 +38,7 @@ const TabItem: React.FC<TabItemProps> = ({ tab, isActive, onClose }) => {
         {tab.icon && (
           <span style={{ height: "auto", width: 18 }}>{tab.icon}</span>
         )}
-        <span>{tab.label}</span>
+        <span style={{ maxWidth: 100, overflow: "hidden" }}>{tab.label}</span>
       </div>
       <button
         style={{
@@ -67,6 +71,7 @@ const TabsRouter: React.FC<TabsRouterProps> = ({ clearAllThreshold = 5 }) => {
         borderBottom: "1px solid #f0f0f0",
         justifyContent: "space-between",
         alignItems: "flex-end",
+        overflow: "scroll",
       }}
     >
       <div style={{ display: "flex" }}>

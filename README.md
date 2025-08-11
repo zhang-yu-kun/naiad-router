@@ -1,4 +1,4 @@
-# naiad_router
+# naiad-router
 
 此项目是 react 实现 vue 的 keepalive 的项目。主要针对中后台系统中，用户希望同时看到几个页面的情景。同时搭配 naiad-admin 使用有良好的体验。
 安装此项目不需要安装 react-router 7，此项目将常用的方法暴露出来，以免出现版本的冲突。
@@ -44,7 +44,7 @@ const routes = createBrowserRouter([{...}])
 
 与 react-router 7 的用法一致。
 
-### 后期带完成的功能
+### 后期待完善的功能
 
 1. tabs 页没有过长的滚动条。
 2. tabs 拖拽排序。
