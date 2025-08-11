@@ -1,6 +1,6 @@
 {
   "name": "naiad-router",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "type": "module",
   "main": "./dist/naiad-router.umd.js",
   "module": "./dist/naiad-router.es.js",
