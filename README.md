@@ -1,69 +1,51 @@
-# React + TypeScript + Vite
+# naiad_router
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+此项目是 react 实现 vue 的 keepalive 的项目。主要针对中后台系统中，用户希望同时看到几个页面的情景。同时搭配 naiad-admin 使用有良好的体验。
+安装此项目不需要安装 react-router 7，此项目将常用的方法暴露出来，以免出现版本的冲突。
 
-Currently, two official plugins are available:
+此项目原理简单，利用 Map 对象进行缓存控制，display 进行显隐展示。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+此项目可以通过模式切换，`tabs`和`routes`。如果选 routes 是正常 react-router 7 的模式。 如果选择 tabs 则是类似于 vue 的 keepalive 的模式。
 
-## Expanding the ESLint configuration
+## 使用方法
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+如果选择`tabs`模式。
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
+```
+const routerConfig = {
+  "/a1": {
+    path: "/a1",
+    loader: () => import("./A1"),
+    label: "a1",
   },
-])
+  "/a2": {
+    path: "/a2",
+    loader: () => import("./a2"),
+    label: "a2",
+  },
+  "/a2/b1": {
+    path: "/a2/b1",
+    loader: () => import("./a2/b1"),
+    label: "b1",
+  },
+};
+
+   <NaiadRouter mode="tabs" layout={<A0 />} routerConfig={routerConfig} />
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+此时需要传递三个参数，模式选择 layout 组件 和 路由配置。这里因为针对中后台系统开发，所以默认需要布局组件。
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+如果选择`routes`模式。
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+const routes = createBrowserRouter([{...}])
+   <NaiadRouter mode="routes" router={routes} />
+```
+
+与 react-router 7 的用法一致。
+
+### 后期带完成的功能
+
+1. tabs 页没有过长的滚动条。
+2. tabs 拖拽排序。
+3. 非 tabs（缓存）页面的传递
