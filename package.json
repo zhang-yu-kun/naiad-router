@@ -1,8 +1,20 @@
 {
   "name": "naiad-router",
-  "private": true,
-  "version": "0.5.0",
+  "version": "0.5.1",
   "type": "module",
+  "main": "./dist/naiad-router.umd.js",
+  "module": "./dist/naiad-router.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "component",
+    "react-router",
+    "keepalive"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
