@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect } from "react";
 import { useImmerReducer } from "use-immer";
 import routerReducer from "./routerReducer";
 import type { Dispatch, ReactNode } from "react";
-import type { RouterAction, RouterState, NaiadRouter } from "../types";
+import type { RouterAction, RouterState, routerConfigTy } from "../types";
 
 export const initialState = {
   cacheMap: new Map(), // 缓存的页面数据
@@ -25,7 +25,7 @@ export const RouterSroreProvider = ({
   routerConfig,
 }: {
   children: ReactNode;
-  routerConfig: NaiadRouter["routerConfig"];
+  routerConfig: routerConfigTy;
 }) => {
   const [state, dispatch] = useImmerReducer(routerReducer, initialState);
   useEffect(() => {

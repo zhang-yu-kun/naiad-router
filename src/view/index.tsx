@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { NaiadRouter } from "../index";
 import A0 from "./A0";
 
-const routerConfig = {
+const routerContentConfig = {
   "/a1": {
     path: "/a1",
     loader: () => import("./A1"),
@@ -23,6 +23,10 @@ const routerConfig = {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <NaiadRouter mode="tabs" layout={<A0 />} routerConfig={routerConfig} />
+    <NaiadRouter
+      mode="tabs"
+      layout={<A0 />}
+      routerConfig={{ content: routerContentConfig }}
+    />
   </StrictMode>
 );

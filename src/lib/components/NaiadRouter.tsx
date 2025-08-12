@@ -4,32 +4,47 @@ import { RouterSroreProvider } from "../store/routerStore";
 import type { NaiadRouter } from "../types";
 import { useEffect, useState } from "react";
 
-const NaiadRouter = ({ mode, router, layout, routerConfig }: NaiadRouter) => {
-  const [list, setList] = useState<{ path: string; element: null }[]>([]);
+const NaiadRouter: React.FC<NaiadRouter> = (props) => {
+  let mode = props.mode;
+  const layout = props.mode === "tabs" ? props.layout : null;
+  const routerConfig = props.mode === "tabs" ? props.routerConfig : null;
+
+  const router = props.mode === "routes" ? props.router : null;
+
+  const [content, setContent] = useState<{ path: string; element: null }[]>([]);
+  const [page, setPage] = useState<{ path: string; element: null }[]>([]);
 
   useEffect(() => {
-    const n_list = Object.values(routerConfig || {}).map((item) => ({
+    const n_list = Object.values(routerConfig?.content || {}).map((item) => ({
       path: item.path,
       element: null,
     }));
-    setList(n_list);
+    setContent(n_list);
+    const p_list = Object.values(routerConfig?.page || {}).map((item) => ({
+      path: item.path,
+      element: null,
+    }));
+    setPage(p_list);
   }, [routerConfig]);
 
   const getRoutes = () => {
-    if (list.length > 0) {
-      return createBrowserRouter([
-        {
-          path: "/",
-          element: layout,
-          children: [
-            {
-              path: "/",
-              element: <KeepOutlet />,
-              children: list,
-            },
-          ],
-        },
-      ]);
+    const routes = [
+      {
+        path: "/",
+        element: layout,
+        children: [
+          {
+            path: "/",
+            element: <KeepOutlet />,
+            children: content,
+          },
+        ],
+      },
+      ...page,
+    ];
+
+    if (content.length > 0) {
+      return createBrowserRouter(routes);
     }
     return createBrowserRouter([]);
   };
@@ -40,8 +55,10 @@ const NaiadRouter = ({ mode, router, layout, routerConfig }: NaiadRouter) => {
 
   if (mode === "tabs") {
     return (
-      <RouterSroreProvider routerConfig={routerConfig}>
-        {list.length > 0 && <RouterProvider router={getRoutes()} />}
+      <RouterSroreProvider
+        routerConfig={{ ...routerConfig?.content, ...routerConfig?.page }}
+      >
+        {content.length > 0 && <RouterProvider router={getRoutes()} />}
       </RouterSroreProvider>
     );
   }

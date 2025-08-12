@@ -10,7 +10,7 @@ export type CacheItem = {
 export type RouterState = {
   cacheMap: Map<string, CacheItem>;
   tabsList: NaiadRouterConfig[];
-  routerConfig?: { [path: string]: NaiadRouterConfig };
+  routerConfig?: routerConfigTy;
   cacheLog: number;
 };
 
@@ -25,21 +25,34 @@ export type RouterAction =
     }
   | { type: "REMOVE_TAB"; payload: string }
   | { type: "REMOVE_ALL_TABS" }
-  | { type: "SAVE_ROUTER_CONFIG"; payload: NaiadRouter["routerConfig"] }
+  | { type: "SAVE_ROUTER_CONFIG"; payload: routerConfigTy }
   | {
       type: "MOUNT_COMPONENT";
       payload: { path: string; element: ReactElement };
     };
 
+//关于routerConfigTy的定义
+export type routerConfigTy = { [path: string]: NaiadRouterConfig };
 export type NaiadRouterConfig = {
   path: string;
   label: string;
   icon?: ReactNode;
   loader: () => Promise<{ default: ComponentType }>;
 };
+
 export type NaiadRouter = {
   mode: "tabs" | "routes";
-  router?: any;
-  layout?: ReactElement;
-  routerConfig?: { [path: string]: NaiadRouterConfig };
-};
+} & (
+  | {
+      mode: "tabs";
+      layout: ReactElement;
+      routerConfig: {
+        content: routerConfigTy;
+        page?: routerConfigTy;
+      };
+    }
+  | {
+      mode: "routes";
+      router: any;
+    }
+);
