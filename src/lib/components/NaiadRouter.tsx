@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router";
 import KeepOutlet from "./KeepOutlet";
 import { RouterSroreProvider } from "../store/routerStore";
 import type { NaiadRouter } from "../types";
-import { useEffect, useState } from "react";
+import React, { ReactElement, Suspense, useEffect, useState } from "react";
 
 const NaiadRouter: React.FC<NaiadRouter> = (props) => {
   let mode = props.mode;
@@ -12,7 +12,9 @@ const NaiadRouter: React.FC<NaiadRouter> = (props) => {
   const router = props.mode === "routes" ? props.router : null;
 
   const [content, setContent] = useState<{ path: string; element: null }[]>([]);
-  const [page, setPage] = useState<{ path: string; element: null }[]>([]);
+  const [page, setPage] = useState<{ path: string; element: ReactElement }[]>(
+    []
+  );
 
   useEffect(() => {
     const n_list = Object.values(routerConfig?.content || {}).map((item) => ({
@@ -20,10 +22,17 @@ const NaiadRouter: React.FC<NaiadRouter> = (props) => {
       element: null,
     }));
     setContent(n_list);
-    const p_list = Object.values(routerConfig?.page || {}).map((item) => ({
-      path: item.path,
-      element: null,
-    }));
+    const p_list = Object.values(routerConfig?.page || {}).map((item) => {
+      const Com = React.lazy(item.loader);
+      return {
+        path: item.path,
+        element: (
+          <Suspense fallback={<div>Loading</div>}>
+            <Com />
+          </Suspense>
+        ),
+      };
+    });
     setPage(p_list);
   }, [routerConfig]);
 

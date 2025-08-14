@@ -4,20 +4,24 @@ import { NaiadRouter } from "../index";
 import A0 from "./A0";
 
 const routerContentConfig = {
-  "/a1": {
-    path: "/a1",
-    loader: () => import("./A1"),
-    label: "a1",
+  page: {
+    "/a1": {
+      path: "/a1",
+      loader: () => import("./A1"),
+      label: "a1",
+    },
   },
-  "/a2": {
-    path: "/a2",
-    loader: () => import("./a2"),
-    label: "a2",
-  },
-  "/a2/b1": {
-    path: "/a2/b1",
-    loader: () => import("./a2/b1"),
-    label: "b1",
+  content: {
+    "/a2": {
+      path: "/a2",
+      loader: () => import("./a2"),
+      label: "a2",
+    },
+    "/a2/b1": {
+      path: "/a2/b1",
+      loader: () => import("./a2/b1"),
+      label: "b1",
+    },
   },
 };
 
@@ -26,7 +30,7 @@ createRoot(document.getElementById("root")!).render(
     <NaiadRouter
       mode="tabs"
       layout={<A0 />}
-      routerConfig={{ content: routerContentConfig }}
+      routerConfig={routerContentConfig}
     />
   </StrictMode>
 );
