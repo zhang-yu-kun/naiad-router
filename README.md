@@ -48,6 +48,75 @@ const routes = createBrowserRouter([{...}])
 
 与 react-router 7 的用法一致。
 
+### 新功能
+
+增加入口路径和 404 页面。
+入口路径可以理解为重定向，因为进入后默认是 `/` 路径，所以需要重定向到某个具体页面比如说`/home` 。
+如果在 tabs 模式下，有找不到的页面，重新打开了一个页面，此时不是很友好，所以将 404 页面配置到页签里，可以提升用户体验。
+
+```jsx
+const routerConfig = {
+  enter: "/home",
+  notFound: "/404",
+  page: {
+    "/login": {
+      path: "/login",
+      loader: () => import("./login"),
+      label: "登录",
+    },
+  },
+  content: {
+    "/home": {
+      path: "/home",
+      loader: () => import("./home"),
+      label: "首页",
+    },
+    "/home/search": {
+      path: "/home/search",
+      loader: () => import("./home/search"),
+      label: "搜索",
+    },
+    "/404": {
+      path: "/404",
+      loader: () => import("./notFound"),
+      label: "找不到",
+    },
+  },
+};
+```
+
+当然你也可以使用传统的方式，在路由配置中加入一个 404 的页面。
+
+```jsx
+const routerConfig = {
+  enter: "/home",
+
+  page: {
+    "/login": {
+      path: "/login",
+      loader: () => import("./login"),
+      label: "登录",
+    },
+    "*": {
+      path: "*",
+      loader: () => import("./notFound"),
+    }, //此时会打开一个新的404页面，不在页签之内
+  },
+  content: {
+    "/home": {
+      path: "/home",
+      loader: () => import("./home"),
+      label: "首页",
+    },
+    "/home/search": {
+      path: "/home/search",
+      loader: () => import("./home/search"),
+      label: "搜索",
+    },
+  },
+};
+```
+
 ## 日志
 
 ##### 0.6.5
