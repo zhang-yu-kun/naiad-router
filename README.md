@@ -11,33 +11,37 @@
 
 如果选择`tabs`模式。
 
-```
+```jsx
 const routerConfig = {
-  "/a1": {
-    path: "/a1",
-    loader: () => import("./A1"),
-    label: "a1",
+  page: {
+    "/a1": {
+      path: "/a1",
+      loader: () => import("./A1"),
+      label: "a1",
+    },
   },
-  "/a2": {
-    path: "/a2",
-    loader: () => import("./a2"),
-    label: "a2",
-  },
-  "/a2/b1": {
-    path: "/a2/b1",
-    loader: () => import("./a2/b1"),
-    label: "b1",
+  content: {
+    "/a2": {
+      path: "/a2",
+      loader: () => import("./a2"),
+      label: "a2",
+    },
+    "/a2/b1": {
+      path: "/a2/b1",
+      loader: () => import("./a2/b1"),
+      label: "b1",
+    },
   },
 };
 
-   <NaiadRouter mode="tabs" layout={<A0 />} routerConfig={routerConfig} />
+<NaiadRouter mode="tabs" layout={<A0 />} routerConfig={routerConfig} />;
 ```
 
 此时需要传递三个参数，模式选择 layout 组件 和 路由配置。这里因为针对中后台系统开发，所以默认需要布局组件。
 
 如果选择`routes`模式。
 
-```
+```jsx
 const routes = createBrowserRouter([{...}])
    <NaiadRouter mode="routes" router={routes} />
 ```
@@ -49,3 +53,7 @@ const routes = createBrowserRouter([{...}])
 ##### 0.6.0
 
 完成 tabs 样式的修改，加入鼠标移入后自动 tab 自动左右移动。
+
+##### 0.5.0
+
+新增：区分 tabs 中的 page 和 content 两种页面，page 不加入缓存且不存放至 layout 组件中，content 加入缓存。
