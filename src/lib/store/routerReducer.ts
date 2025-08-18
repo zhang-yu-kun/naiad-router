@@ -69,6 +69,14 @@ const routerReducer = (state: Draft<RouterState>, action: RouterAction) => {
       state.routerConfig = action.payload;
       break;
     }
+    case "SAVE_ROUTER_ENTER": {
+      state.enter = action.payload;
+      break;
+    }
+    case "SAVE_ROUTER_NOTFOUND": {
+      state.notFound = action.payload;
+      break;
+    }
 
     default:
       break;

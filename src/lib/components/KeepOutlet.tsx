@@ -12,7 +12,16 @@ const KeepOutlet: React.FC = () => {
   useEffect(() => {
     // 页面加载对象存在，允许打开标签页
     if (state.routerConfig) {
-      openTab(location.pathname);
+      if (location.pathname === "/") {
+        openTab(state.enter);
+      }
+      const targetRouter = state.routerConfig[location.pathname];
+
+      if (targetRouter) {
+        openTab(location.pathname);
+      } else {
+        openTab(state.notFound);
+      }
     }
   }, [location.pathname, state.routerConfig]);
 

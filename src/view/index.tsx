@@ -4,12 +4,20 @@ import { NaiadRouter } from "../index";
 import A0 from "./A0";
 
 const routeronfig = {
+  enter: "/a2",
+  notFound: "/a2",
+
   page: {
     "/a1": {
       path: "/a1",
       loader: () => import("./A1"),
       label: "a1",
     },
+  },
+  "*": {
+    path: "*",
+    loader: () => import("./404"),
+    label: "b1",
   },
   content: {
     "/a2": {
@@ -22,6 +30,12 @@ const routeronfig = {
       loader: () => import("./a2/b1"),
       label: "b1",
     },
+
+    // "/404": {
+    //   path: "/404",
+    //   loader: () => import("./404"),
+    //   label: "找不到",
+    // },
   },
 };
 

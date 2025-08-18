@@ -65,6 +65,8 @@ const NaiadRouter: React.FC<NaiadRouter> = (props) => {
   if (mode === "tabs") {
     return (
       <RouterSroreProvider
+        enter={routerConfig?.enter || ""}
+        notFound={routerConfig?.notFound || ""}
         routerConfig={{ ...routerConfig?.content, ...routerConfig?.page }}
       >
         {content.length > 0 && <RouterProvider router={getRoutes()} />}

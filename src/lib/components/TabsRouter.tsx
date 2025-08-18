@@ -4,13 +4,13 @@ import useTabsRouter from "../hooks/useTabsRouter";
 import { useLocation } from "react-router";
 import useScrollAuto from "../hooks/useScrollAuto";
 import { HiX } from "react-icons/hi";
-import type { NaiadRouterConfig } from "../types";
+import type { NaiadRouterConfigItem } from "../types";
 
 type TabsRouterProps = {
   clearAllThreshold?: number;
 };
 type TabItemProps = {
-  tab: NaiadRouterConfig;
+  tab: NaiadRouterConfigItem;
   isActive: boolean;
   onClose: () => void;
 };
@@ -64,6 +64,8 @@ const TabsRouter: React.FC<TabsRouterProps> = ({ clearAllThreshold = 5 }) => {
   const { closeTab, closeAllTabs } = useTabsRouter();
   const location = useLocation();
   const tabsWrapperRef = useRef<HTMLDivElement>(null);
+
+  //路由标签移动
   const { tabsRef, dir, speed, handleMouseMove, handleMouseLeave } =
     useScrollAuto();
   useEffect(() => {
