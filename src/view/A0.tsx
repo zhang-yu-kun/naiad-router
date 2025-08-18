@@ -23,7 +23,9 @@ const A0 = () => {
           </li>
         ))}
       </nav>
-      <TabsRouter />
+      <div style={{ width: 400, background: "#c6c6c6" }}>
+        <TabsRouter />
+      </div>
 
       <Outlet />
     </div>

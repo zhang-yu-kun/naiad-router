@@ -44,7 +44,8 @@ const routes = createBrowserRouter([{...}])
 
 与 react-router 7 的用法一致。
 
-### 后期待完善的功能
+## 日志
 
-1. tabs 页没有过长的滚动条。
-2. tabs 拖拽排序。
+##### 0.6.0
+
+完成 tabs 样式的修改，加入鼠标移入后自动 tab 自动左右移动。

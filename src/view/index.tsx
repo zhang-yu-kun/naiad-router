@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { NaiadRouter } from "../index";
 import A0 from "./A0";
 
-const routerContentConfig = {
+const routeronfig = {
   page: {
     "/a1": {
       path: "/a1",
@@ -27,10 +27,6 @@ const routerContentConfig = {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <NaiadRouter
-      mode="tabs"
-      layout={<A0 />}
-      routerConfig={routerContentConfig}
-    />
+    <NaiadRouter mode="tabs" layout={<A0 />} routerConfig={routeronfig} />
   </StrictMode>
 );
