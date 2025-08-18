@@ -5,7 +5,7 @@ import A0 from "./A0";
 
 const routeronfig = {
   enter: "/a2",
-  notFound: "/a2",
+  notFound: "/404",
 
   page: {
     "/a1": {
@@ -17,7 +17,6 @@ const routeronfig = {
   "*": {
     path: "*",
     loader: () => import("./404"),
-    label: "b1",
   },
   content: {
     "/a2": {
@@ -31,11 +30,11 @@ const routeronfig = {
       label: "b1",
     },
 
-    // "/404": {
-    //   path: "/404",
-    //   loader: () => import("./404"),
-    //   label: "找不到",
-    // },
+    "/404": {
+      path: "/404",
+      loader: () => import("./404"),
+      label: "找不到",
+    },
   },
 };
 

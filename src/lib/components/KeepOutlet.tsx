@@ -14,6 +14,7 @@ const KeepOutlet: React.FC = () => {
     if (state.routerConfig) {
       if (location.pathname === "/") {
         openTab(state.enter);
+        return;
       }
       const targetRouter = state.routerConfig[location.pathname];
 
